@@ -9,6 +9,7 @@ Suspend   = require './models/suspend'
 Reload    = require './models/reload'
 Halt      = require './models/halt'
 Destroy   = require './models/destroy'
+Fs        = require 'fs'
 
 module.exports =
   config:
@@ -22,6 +23,8 @@ module.exports =
   autoSync: false
 
   activate: (state) ->
+    if !@hasVagrantFile()
+      return
     @subscriptions = new CompositeDisposable
     @subscriptions.add atom.commands.add 'atom-workspace', 'vagrant:sync', -> Rsync()
     # For auto-syncing we need to listen to save events from text editors in this
@@ -52,6 +55,14 @@ module.exports =
           if @shouldAutoSync() and path is atom.workspace.getActivePaneItem()
             Rsync()
 
+  hasVagrantFile: ->
+    vagrantFileFound = false
+    Fs.readdir atom.project.getPaths()[0], (errors, dir) ->
+      for filePath in dir
+        if filePath.toLowerCase() is 'vagrantfile'
+          vagrantFileFound =  true
+    return vagrantFileFound
+
   toggleAutoSync: ->
     @autoSync = !@autoSync
 
@@ -59,4 +70,5 @@ module.exports =
     return @autoSync
 
   deactivate: ->
-    @subscriptions.dispose()
+    if @subscriptions
+      @subscriptions.dispose()

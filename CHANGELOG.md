@@ -9,3 +9,6 @@
 
 # 0.3.0 - Git Integration
 * Plugin now uses Atoms internal GitRepository class to monitor when the active branch is changed and resync.
+
+# 0.4.0 -
+* Plugin now only activates if it can find a VagrantFile in the project root directory.
