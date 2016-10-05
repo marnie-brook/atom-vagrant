@@ -1,13 +1,13 @@
 {BufferedProcess} = require 'atom'
 notifier = require './notifier'
 
-module.exports = rsync =
+module.exports = vagrant =
   cmd: (args, options={ env: process.env.PATH, cwd: atom.project.getPaths()[0] }) ->
     notifier.addInfo('Syncing workspace...')
     new Promise (resolve, reject) ->
       output = ''
       process = new BufferedProcess
-        command: atom.config.get('vagrant-rsync.vagrantPath') ? 'vagrant'
+        command: atom.config.get('vagrant.vagrantPath') ? 'vagrant'
         args: args
         options: options
         stdout: (data) -> output += data.toString()
@@ -23,5 +23,29 @@ module.exports = rsync =
         notifier.addError 'An error occurred.'
         reject 'An error occurred.'
 
-  manual: ->
-    rsync.cmd(['rsync'])
+  sync: ->
+    vagrant.cmd(['rsync'])
+
+  init: ->
+    vagrant.cmd(['init'])
+
+  up: ->
+    vagrant.cmd(['up'])
+
+  status: ->
+    vagrant.cmd(['status'])
+
+  provision: ->
+    vagrant.cmd(['provision'])
+
+  suspend: ->
+    vagrant.cmd(['suspend'])
+
+  reload: ->
+    vagrant.cmd(['reload'])
+
+  halt: ->
+    vagrant.cmd(['halt'])
+
+  destroy: ->
+    vagrant.cmd(['destroy'])

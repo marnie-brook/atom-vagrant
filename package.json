@@ -1,13 +1,13 @@
 {
-  "name": "vagrant-rsync",
-  "main": "./lib/vagrant-rsync",
+  "name": "vagrant",
+  "main": "./lib/atom-vagrant",
   "version": "0.1.0",
-  "description": "Automatically sync any edited files with a vagrant machine.",
+  "description": "Interact with your vagrant machine through Atom.",
   "keywords": [
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/william-brook/atom-vagrant-rsync.git"
+    "url": "git+https://github.com/william-brook/atom-vagrant.git"
   },
   "license": "MIT",
   "engines": {

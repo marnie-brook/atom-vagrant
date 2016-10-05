@@ -1,1 +1,1 @@
-module.exports = require('atom-notify')('Vagrant-Rsync')
+module.exports = require('atom-notify')('Vagrant')
