@@ -6,3 +6,6 @@
 ## 0.2.0 - Second Release
 * Widened project scope to move from controlling Vagrant syncing to managing Vagrant machines.
 * Renamed to `atom-vagrant`
+
+# 0.3.0 - Git Integration
+* Plugin now uses Atoms internal GitRepository class to monitor when the active branch is changed and resync.

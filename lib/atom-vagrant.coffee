@@ -24,6 +24,8 @@ module.exports =
   activate: (state) ->
     @subscriptions = new CompositeDisposable
     @subscriptions.add atom.commands.add 'atom-workspace', 'vagrant:sync', -> Rsync()
+    # For auto-syncing we need to listen to save events from text editors in this
+    # workspace.
     @subscriptions.add atom.commands.add 'atom-workspace', 'vagrant:sync-auto-toggle', =>
       @toggleAutoSync()
       if @shouldAutoSync()
@@ -40,6 +42,15 @@ module.exports =
     @subscriptions.add atom.commands.add 'atom-workspace', 'vagrant:reload', -> Reload()
     @subscriptions.add atom.commands.add 'atom-workspace', 'vagrant:halt', -> Halt()
     @subscriptions.add atom.commands.add 'atom-workspace', 'vagrant:destroy', -> Destroy()
+    # Handle changing of git repositories
+    for repo in atom.project.getRepositories()
+      if repo
+        @subscriptions.add repo.onDidChangeStatuses () =>
+          if @shouldAutoSync()
+            Rsync()
+        @subscriptions.add repo.onDidChangeStatus ({path, status}) =>
+          if @shouldAutoSync() and path is atom.workspace.getActivePaneItem()
+            Rsync()
 
   toggleAutoSync: ->
     @autoSync = !@autoSync

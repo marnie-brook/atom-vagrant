@@ -3,8 +3,7 @@ notifier = require './notifier'
 
 module.exports = vagrant =
   cmd: (args, options={ env: process.env.PATH, cwd: atom.project.getPaths()[0] }) ->
-    notifier.addInfo('Syncing workspace...')
-    new Promise (resolve, reject) ->
+    new Promise (resolve, reject) =>
       output = ''
       process = new BufferedProcess
         command: atom.config.get('vagrant.vagrantPath') ? 'vagrant'
@@ -12,7 +11,7 @@ module.exports = vagrant =
         options: options
         stdout: (data) -> output += data.toString()
         stderr: (data) -> output += data.toString()
-        exit: (code) ->
+        exit: (code) =>
           if code is 0
             notifier.addSuccess(output)
             resolve output
@@ -24,6 +23,7 @@ module.exports = vagrant =
         reject 'An error occurred.'
 
   rsync: ->
+    notifier.addInfo('Syncing project, this may take a while...')
     vagrant.cmd(['rsync'])
 
   init: ->
