@@ -1,7 +1,7 @@
 {
   "name": "vagrant-rsync",
   "main": "./lib/vagrant-rsync",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Automatically sync any edited files with a vagrant machine.",
   "keywords": [
   ],
