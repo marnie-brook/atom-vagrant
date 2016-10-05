@@ -23,7 +23,7 @@ module.exports = vagrant =
         notifier.addError 'An error occurred.'
         reject 'An error occurred.'
 
-  sync: ->
+  rsync: ->
     vagrant.cmd(['rsync'])
 
   init: ->
