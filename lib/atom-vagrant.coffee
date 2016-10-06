@@ -22,8 +22,11 @@ module.exports =
 
   autoSync: false
 
+  vagrantFileExists: false
+
   activate: (state) ->
-    if !@hasVagrantFile()
+    @findVagrantFile()
+    if !@vagrantFileExists
       return
     @subscriptions = new CompositeDisposable
     @subscriptions.add atom.commands.add 'atom-workspace', 'vagrant:sync', -> Rsync()
@@ -55,13 +58,12 @@ module.exports =
           if @shouldAutoSync() and path is atom.workspace.getActivePaneItem()
             Rsync()
 
-  hasVagrantFile: ->
-    vagrantFileFound = false
-    Fs.readdir atom.project.getPaths()[0], (errors, dir) ->
-      for filePath in dir
-        if filePath.toLowerCase() is 'vagrantfile'
-          vagrantFileFound =  true
-    return vagrantFileFound
+  findVagrantFile: ->
+    dir = Fs.readdirSync atom.project.getPaths()[0]
+    for filePath in dir
+      if filePath.toLowerCase() == 'vagrantfile'
+        @vagrantFileExists =  true
+        return
 
   toggleAutoSync: ->
     @autoSync = !@autoSync

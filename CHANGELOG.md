@@ -12,3 +12,6 @@
 
 # 0.4.0 -
 * Plugin now only activates if it can find a VagrantFile in the project root directory.
+
+# 0.4.1 - Removed a bug regarding finding the Vagrantfile
+* Previously was done asynchronously.
