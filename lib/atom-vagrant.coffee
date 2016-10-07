@@ -59,7 +59,10 @@ module.exports =
             Rsync()
 
   findVagrantFile: ->
-    dir = Fs.readdirSync atom.project.getPaths()[0]
+    path = atom.project.getPaths()[0]
+    if typeof path isnt 'string'
+      return
+    dir = Fs.readdirSync path
     for filePath in dir
       if filePath.toLowerCase() == 'vagrantfile'
         @vagrantFileExists =  true

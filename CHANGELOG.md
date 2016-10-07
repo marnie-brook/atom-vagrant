@@ -15,3 +15,5 @@
 
 # 0.4.1 - Removed a bug regarding finding the Vagrantfile
 * Previously was done asynchronously.
+
+# 0.4.2 - Fixed breakage if atom not opened in project
