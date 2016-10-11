@@ -8,3 +8,8 @@
 - Only enable commands if a VagrantFile exists in project. (0.4.0)
 
 # To Do
+- Provide an option to run `vagrant provision` after changing branches in git.
+- Format all data returned from `vagrant` CLI commands
+- Queue actions if they are already being executed when requested
+- Provide information on currently executing command(s) in the status bar
+- Provide an easy way to see whether or not a vagrant machine is in sync
